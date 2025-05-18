@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Passport {
+  id             Int            @id @default(autoincrement())
+  passportNumber String         @unique
+  status         String         @default("available")
+  email          String?
+  phoneNumber    String?
+  receivedAt     DateTime       @default(now())
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  notifications  Notification[]
+}
+
+model Notification {
+  id         Int       @id @default(autoincrement())
+  passport   Passport  @relation(fields: [passportId], references: [id])
+  passportId Int
+  type       String // "email" ou "sms"
+  status     String // "pending", "sent", "failed"
+  message    String
+  createdAt  DateTime  @default(now())
+  sentAt     DateTime?
+  error      String?
+}
+
+model ImportHistory {
+  id           Int      @id @default(autoincrement())
+  fileName     String
+  status       String
+  totalCount   Int
+  successCount Int
+  failedCount  Int
+  createdAt    DateTime @default(now())
+  details      String?
+}
+
+model PassportImport {
+  id           Int      @id @default(autoincrement())
+  fileName     String
+  status       String // 'pending', 'success', 'partial', 'failed'
+  totalCount   Int
+  successCount Int
+  failedCount  Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
