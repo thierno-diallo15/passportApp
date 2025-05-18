@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Système de Gestion des Passeports
 
-## Getting Started
+Application web pour la gestion des passeports de l'ambassade, développée avec Next.js, Prisma et PostgreSQL.
 
-First, run the development server:
+## Fonctionnalités
 
+- 🔐 Authentification sécurisée pour les administrateurs
+- 📊 Tableau de bord administratif
+- 📈 Statistiques en temps réel
+- 📱 Notifications par email et SMS
+- 📥 Import de données via fichiers Excel
+- 🔍 Recherche de passeports
+- 📋 Gestion des statuts des passeports
+
+## Technologies utilisées
+
+- Next.js 14
+- Prisma
+- PostgreSQL
+- NextAuth.js
+- Tailwind CSS
+- TypeScript
+- Nodemailer (pour les emails)
+- Twilio (pour les SMS)
+
+## Prérequis
+
+- Node.js 18+
+- PostgreSQL
+- Compte Gmail (pour les notifications par email)
+- Compte Twilio (pour les notifications par SMS)
+
+## Installation
+
+1. Cloner le repository :
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/votre-username/passport-app.git
+cd passport-app
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Installer les dépendances :
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Configurer les variables d'environnement :
+```bash
+cp .env.example .env
+```
+Puis modifiez le fichier `.env` avec vos configurations.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Initialiser la base de données :
+```bash
+npx prisma migrate dev
+```
 
-## Learn More
+5. Lancer l'application :
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Configuration
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Variables d'environnement
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```env
+# Base de données
+DATABASE_URL="postgresql://..."
+DIRECT_URL="postgresql://..."
 
-## Deploy on Vercel
+# NextAuth
+JWT_SECRET="votre-secret-jwt"
+ADMIN_EMAIL="admin@ambassade.gn"
+ADMIN_PASSWORD="mot-de-passe-securise"
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Email (Gmail)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_USER=votre-email@gmail.com
+SMTP_PASSWORD=votre-mot-de-passe-application
+SMTP_FROM=votre-email@gmail.com
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# SMS (Twilio)
+TWILIO_ACCOUNT_SID=votre-account-sid
+TWILIO_AUTH_TOKEN=votre-auth-token
+TWILIO_PHONE_NUMBER=votre-numero-twilio
+```
+
+## Utilisation
+
+1. Accédez à l'interface d'administration : `/admin`
+2. Connectez-vous avec les identifiants administrateur
+3. Importez des passeports via l'interface d'import
+4. Gérez les passeports et envoyez des notifications
+
+## Contribution
+
+Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou une pull request.
+
+## Licence
+
+Ce projet est sous licence MIT.
