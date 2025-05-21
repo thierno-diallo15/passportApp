@@ -1,24 +1,24 @@
 'use client'
 
 import { useState } from 'react'
-import { Search, Loader, AlertCircle, CheckCircle2, XCircle, Bell } from 'lucide-react'
+import Search from 'lucide-react/dist/esm/icons/search'
+import Loader from 'lucide-react/dist/esm/icons/loader'
+import AlertCircle from 'lucide-react/dist/esm/icons/alert-circle'
+import CheckCircle2 from 'lucide-react/dist/esm/icons/check-circle-2'
+import XCircle from 'lucide-react/dist/esm/icons/x-circle'
+import FileX from 'lucide-react/dist/esm/icons/file-x'
+import FileCheck from 'lucide-react/dist/esm/icons/file-check'
 
 export default function SearchPage() {
   const [passportNumber, setPassportNumber] = useState('')
-  const [result, setResult] = useState<null | boolean>(null)
+  const [result, setResult] = useState<null | { found: boolean; status: string | null }>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [showNotificationForm, setShowNotificationForm] = useState(false)
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [notificationSent, setNotificationSent] = useState(false)
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
     setLoading(true)
-    setShowNotificationForm(false)
-    setNotificationSent(false)
 
     try {
       const res = await fetch('/api/search', {
@@ -30,7 +30,7 @@ export default function SearchPage() {
       const data = await res.json()
 
       if (res.ok) {
-        setResult(data.found)
+        setResult(data)
       } else {
         setError(data.error || 'Erreur lors de la recherche.')
         setResult(null)
@@ -43,32 +43,40 @@ export default function SearchPage() {
     }
   }
 
-  const handleNotification = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
-    setLoading(true)
+  const getStatusMessage = () => {
+    if (!result) return null
 
-    try {
-      const res = await fetch('/api/notifications', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ passportNumber, email, phone }),
-      })
-
-      const data = await res.json()
-
-      if (res.ok) {
-        setNotificationSent(true)
-        setShowNotificationForm(false)
-      } else {
-        setError(data.error || 'Erreur lors de l\'enregistrement des notifications.')
+    if (!result.found) {
+      return {
+        icon: <XCircle size={22} />,
+        message: "Votre passeport n'est pas encore disponible",
+        color: 'bg-yellow-500'
       }
-    } catch (err) {
-      setError('Erreur de connexion au serveur.')
-    } finally {
-      setLoading(false)
+    }
+
+    switch (result.status) {
+      case 'available':
+        return {
+          icon: <CheckCircle2 size={22} />,
+          message: "Votre passeport est arrivé",
+          color: 'bg-green-500'
+        }
+      case 'withdrawn':
+        return {
+          icon: <FileX size={22} />,
+          message: "Votre passeport a déjà été retiré",
+          color: 'bg-gray-500'
+        }
+      default:
+        return {
+          icon: <XCircle size={22} />,
+          message: "Votre passeport n'est pas encore disponible",
+          color: 'bg-yellow-500'
+        }
     }
   }
+
+  const statusInfo = getStatusMessage()
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-blue-50 to-white px-4 py-10">
@@ -106,86 +114,17 @@ export default function SearchPage() {
           </button>
         </form>
 
+        {statusInfo && (
+          <div
+            className={`flex items-center gap-2 px-4 py-3 rounded-md text-white font-medium ${statusInfo.color}`}
+          >
+            {statusInfo.icon} {statusInfo.message}
+          </div>
+        )}
+
         {error && (
           <div className="flex items-center gap-2 text-red-600 bg-red-50 px-4 py-2 rounded-md">
             <AlertCircle size={20} /> {error}
-          </div>
-        )}
-
-        {result !== null && (
-          <div
-            className={`flex items-center gap-2 px-4 py-3 rounded-md text-white font-medium ${
-              result ? 'bg-green-500' : 'bg-yellow-500'
-            }`}
-          >
-            {result ? (
-              <>
-                <CheckCircle2 size={22} /> Votre passeport est <b className="ml-1">arrivé !</b>
-              </>
-            ) : (
-              <>
-                <XCircle size={22} /> Votre passeport n'est <b className="ml-1">pas encore disponible</b>.
-                <button
-                  onClick={() => setShowNotificationForm(true)}
-                  className="ml-auto bg-white/20 hover:bg-white/30 px-3 py-1 rounded-lg text-sm flex items-center gap-1"
-                >
-                  <Bell size={16} />
-                  Être notifié
-                </button>
-              </>
-            )}
-          </div>
-        )}
-
-        {showNotificationForm && (
-          <form onSubmit={handleNotification} className="space-y-4 bg-gray-50 p-4 rounded-xl">
-            <h3 className="font-medium text-gray-900">Être notifié de l'arrivée</h3>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Email
-              </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="votre@email.com"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Téléphone (optionnel)
-              </label>
-              <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="+221 7X XXX XX XX"
-              />
-            </div>
-            <div className="flex gap-2">
-              <button
-                type="submit"
-                disabled={loading || (!email && !phone)}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 transition text-white py-2 rounded-xl text-sm font-medium"
-              >
-                {loading ? 'Enregistrement...' : 'Enregistrer'}
-              </button>
-              <button
-                type="button"
-                onClick={() => setShowNotificationForm(false)}
-                className="px-4 py-2 text-gray-600 hover:text-gray-800"
-              >
-                Annuler
-              </button>
-            </div>
-          </form>
-        )}
-
-        {notificationSent && (
-          <div className="text-green-600 bg-green-50 px-4 py-2 rounded-md">
-            Vos préférences de notification ont été enregistrées.
           </div>
         )}
       </div>

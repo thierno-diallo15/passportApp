@@ -15,7 +15,7 @@ export async function GET() {
     }
 
     // Récupérer l'historique des imports
-    const history = await prisma.passportImport.findMany({
+    const history = await prisma.importHistory.findMany({
       orderBy: {
         createdAt: 'desc',
       },

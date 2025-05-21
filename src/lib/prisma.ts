@@ -1,7 +1,9 @@
 import { PrismaClient } from '../generated/prisma'
 
 const prismaClientSingleton = () => {
-  return new PrismaClient()
+  return new PrismaClient({
+    log: ['query', 'error', 'warn'],
+  })
 }
 
 type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>

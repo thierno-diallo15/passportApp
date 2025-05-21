@@ -16,6 +16,7 @@ model Passport {
   email          String?
   phoneNumber    String?
   receivedAt     DateTime       @default(now())
+  withdrawnAt    DateTime?
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
   notifications  Notification[]

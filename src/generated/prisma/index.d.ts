@@ -256,8 +256,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.6.0
-   * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
+   * Prisma Client JS version: 6.8.2
+   * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
     client: string
@@ -1199,6 +1199,7 @@ export namespace Prisma {
     email: string | null
     phoneNumber: string | null
     receivedAt: Date | null
+    withdrawnAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1210,6 +1211,7 @@ export namespace Prisma {
     email: string | null
     phoneNumber: string | null
     receivedAt: Date | null
+    withdrawnAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1221,6 +1223,7 @@ export namespace Prisma {
     email: number
     phoneNumber: number
     receivedAt: number
+    withdrawnAt: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1242,6 +1245,7 @@ export namespace Prisma {
     email?: true
     phoneNumber?: true
     receivedAt?: true
+    withdrawnAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1253,6 +1257,7 @@ export namespace Prisma {
     email?: true
     phoneNumber?: true
     receivedAt?: true
+    withdrawnAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1264,6 +1269,7 @@ export namespace Prisma {
     email?: true
     phoneNumber?: true
     receivedAt?: true
+    withdrawnAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1362,6 +1368,7 @@ export namespace Prisma {
     email: string | null
     phoneNumber: string | null
     receivedAt: Date
+    withdrawnAt: Date | null
     createdAt: Date
     updatedAt: Date
     _count: PassportCountAggregateOutputType | null
@@ -1392,6 +1399,7 @@ export namespace Prisma {
     email?: boolean
     phoneNumber?: boolean
     receivedAt?: boolean
+    withdrawnAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     notifications?: boolean | Passport$notificationsArgs<ExtArgs>
@@ -1405,6 +1413,7 @@ export namespace Prisma {
     email?: boolean
     phoneNumber?: boolean
     receivedAt?: boolean
+    withdrawnAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["passport"]>
@@ -1416,6 +1425,7 @@ export namespace Prisma {
     email?: boolean
     phoneNumber?: boolean
     receivedAt?: boolean
+    withdrawnAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["passport"]>
@@ -1427,11 +1437,12 @@ export namespace Prisma {
     email?: boolean
     phoneNumber?: boolean
     receivedAt?: boolean
+    withdrawnAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PassportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "passportNumber" | "status" | "email" | "phoneNumber" | "receivedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["passport"]>
+  export type PassportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "passportNumber" | "status" | "email" | "phoneNumber" | "receivedAt" | "withdrawnAt" | "createdAt" | "updatedAt", ExtArgs["result"]["passport"]>
   export type PassportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     notifications?: boolean | Passport$notificationsArgs<ExtArgs>
     _count?: boolean | PassportCountOutputTypeDefaultArgs<ExtArgs>
@@ -1451,6 +1462,7 @@ export namespace Prisma {
       email: string | null
       phoneNumber: string | null
       receivedAt: Date
+      withdrawnAt: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["passport"]>
@@ -1883,6 +1895,7 @@ export namespace Prisma {
     readonly email: FieldRef<"Passport", 'String'>
     readonly phoneNumber: FieldRef<"Passport", 'String'>
     readonly receivedAt: FieldRef<"Passport", 'DateTime'>
+    readonly withdrawnAt: FieldRef<"Passport", 'DateTime'>
     readonly createdAt: FieldRef<"Passport", 'DateTime'>
     readonly updatedAt: FieldRef<"Passport", 'DateTime'>
   }
@@ -5631,6 +5644,7 @@ export namespace Prisma {
     email: 'email',
     phoneNumber: 'phoneNumber',
     receivedAt: 'receivedAt',
+    withdrawnAt: 'withdrawnAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -5778,6 +5792,7 @@ export namespace Prisma {
     email?: StringNullableFilter<"Passport"> | string | null
     phoneNumber?: StringNullableFilter<"Passport"> | string | null
     receivedAt?: DateTimeFilter<"Passport"> | Date | string
+    withdrawnAt?: DateTimeNullableFilter<"Passport"> | Date | string | null
     createdAt?: DateTimeFilter<"Passport"> | Date | string
     updatedAt?: DateTimeFilter<"Passport"> | Date | string
     notifications?: NotificationListRelationFilter
@@ -5790,6 +5805,7 @@ export namespace Prisma {
     email?: SortOrderInput | SortOrder
     phoneNumber?: SortOrderInput | SortOrder
     receivedAt?: SortOrder
+    withdrawnAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     notifications?: NotificationOrderByRelationAggregateInput
@@ -5805,6 +5821,7 @@ export namespace Prisma {
     email?: StringNullableFilter<"Passport"> | string | null
     phoneNumber?: StringNullableFilter<"Passport"> | string | null
     receivedAt?: DateTimeFilter<"Passport"> | Date | string
+    withdrawnAt?: DateTimeNullableFilter<"Passport"> | Date | string | null
     createdAt?: DateTimeFilter<"Passport"> | Date | string
     updatedAt?: DateTimeFilter<"Passport"> | Date | string
     notifications?: NotificationListRelationFilter
@@ -5817,6 +5834,7 @@ export namespace Prisma {
     email?: SortOrderInput | SortOrder
     phoneNumber?: SortOrderInput | SortOrder
     receivedAt?: SortOrder
+    withdrawnAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: PassportCountOrderByAggregateInput
@@ -5836,6 +5854,7 @@ export namespace Prisma {
     email?: StringNullableWithAggregatesFilter<"Passport"> | string | null
     phoneNumber?: StringNullableWithAggregatesFilter<"Passport"> | string | null
     receivedAt?: DateTimeWithAggregatesFilter<"Passport"> | Date | string
+    withdrawnAt?: DateTimeNullableWithAggregatesFilter<"Passport"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Passport"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Passport"> | Date | string
   }
@@ -6056,6 +6075,7 @@ export namespace Prisma {
     email?: string | null
     phoneNumber?: string | null
     receivedAt?: Date | string
+    withdrawnAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     notifications?: NotificationCreateNestedManyWithoutPassportInput
@@ -6068,6 +6088,7 @@ export namespace Prisma {
     email?: string | null
     phoneNumber?: string | null
     receivedAt?: Date | string
+    withdrawnAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     notifications?: NotificationUncheckedCreateNestedManyWithoutPassportInput
@@ -6079,6 +6100,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    withdrawnAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     notifications?: NotificationUpdateManyWithoutPassportNestedInput
@@ -6091,6 +6113,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    withdrawnAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     notifications?: NotificationUncheckedUpdateManyWithoutPassportNestedInput
@@ -6103,6 +6126,7 @@ export namespace Prisma {
     email?: string | null
     phoneNumber?: string | null
     receivedAt?: Date | string
+    withdrawnAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6113,6 +6137,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    withdrawnAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6124,6 +6149,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    withdrawnAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6401,6 +6427,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NotificationListRelationFilter = {
     every?: NotificationWhereInput
     some?: NotificationWhereInput
@@ -6423,6 +6460,7 @@ export namespace Prisma {
     email?: SortOrder
     phoneNumber?: SortOrder
     receivedAt?: SortOrder
+    withdrawnAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6438,6 +6476,7 @@ export namespace Prisma {
     email?: SortOrder
     phoneNumber?: SortOrder
     receivedAt?: SortOrder
+    withdrawnAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6449,6 +6488,7 @@ export namespace Prisma {
     email?: SortOrder
     phoneNumber?: SortOrder
     receivedAt?: SortOrder
+    withdrawnAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -6523,7 +6563,7 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -6531,7 +6571,10 @@ export namespace Prisma {
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type PassportScalarRelationFilter = {
@@ -6580,20 +6623,6 @@ export namespace Prisma {
   export type NotificationSumOrderByAggregateInput = {
     id?: SortOrder
     passportId?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type ImportHistoryCountOrderByAggregateInput = {
@@ -6716,6 +6745,10 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type NotificationUpdateManyWithoutPassportNestedInput = {
     create?: XOR<NotificationCreateWithoutPassportInput, NotificationUncheckedCreateWithoutPassportInput> | NotificationCreateWithoutPassportInput[] | NotificationUncheckedCreateWithoutPassportInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutPassportInput | NotificationCreateOrConnectWithoutPassportInput[]
@@ -6756,10 +6789,6 @@ export namespace Prisma {
     create?: XOR<PassportCreateWithoutNotificationsInput, PassportUncheckedCreateWithoutNotificationsInput>
     connectOrCreate?: PassportCreateOrConnectWithoutNotificationsInput
     connect?: PassportWhereUniqueInput
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type PassportUpdateOneRequiredWithoutNotificationsNestedInput = {
@@ -6818,6 +6847,17 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -6906,17 +6946,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -6996,6 +7025,7 @@ export namespace Prisma {
     email?: string | null
     phoneNumber?: string | null
     receivedAt?: Date | string
+    withdrawnAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -7007,6 +7037,7 @@ export namespace Prisma {
     email?: string | null
     phoneNumber?: string | null
     receivedAt?: Date | string
+    withdrawnAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -7033,6 +7064,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    withdrawnAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7044,6 +7076,7 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    withdrawnAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
