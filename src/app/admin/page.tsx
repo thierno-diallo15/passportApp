@@ -35,6 +35,8 @@ export default function AdminPage() {
     createdAt: string;
   }>>([])
   const [currentPage, setCurrentPage] = useState(1)
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false)
+  const [importToDelete, setImportToDelete] = useState<number | null>(null)
   const itemsPerPage = 5
   const router = useRouter()
   const [selectedFileName, setSelectedFileName] = useState('')
@@ -135,6 +137,24 @@ export default function AdminPage() {
   // Fonction pour changer de page
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber)
+  }
+
+  const handleDeleteHistory = async (id: number) => {
+    try {
+      const res = await fetch(`/api/admin/import-history?id=${id}`, {
+        method: 'DELETE',
+      })
+
+      if (res.ok) {
+        setImportHistory(importHistory.filter(item => item.id !== id))
+        setShowConfirmDialog(false)
+        setImportToDelete(null)
+      } else {
+        setError('Erreur lors de la suppression de l\'historique')
+      }
+    } catch (err) {
+      setError('Erreur de connexion au serveur')
+    }
   }
 
   if (status === 'loading') {
@@ -333,14 +353,16 @@ export default function AdminPage() {
             )}
           </div>
 
-          {/* History Section */}
+          {/* Import History Section */}
           <div className="bg-white/80 backdrop-blur-sm shadow-2xl rounded-2xl p-8 border border-gray-100">
-            <h2 className="text-2xl font-semibold mb-6 flex items-center gap-3 text-gray-800">
-              <div className="p-2 bg-indigo-100 rounded-lg">
-                <History className="h-6 w-6 text-indigo-600" />
-              </div>
-              Historique des imports
-            </h2>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-semibold flex items-center gap-3 text-gray-800">
+                <div className="p-2 bg-indigo-100 rounded-lg">
+                  <History className="h-6 w-6 text-indigo-600" />
+                </div>
+                Historique des imports
+              </h2>
+            </div>
 
             <div className="space-y-4">
               {currentItems.map((import_) => (
@@ -355,13 +377,27 @@ export default function AdminPage() {
                         {new Date(import_.createdAt).toLocaleString()}
                       </p>
                     </div>
-                    <span className={`px-3 py-1.5 rounded-full text-sm font-medium ${
-                      import_.status === 'success'
-                        ? 'bg-green-100 text-green-800 border border-green-200'
-                        : 'bg-red-100 text-red-800 border border-red-200'
-                    }`}>
-                      {import_.status === 'success' ? 'Succès' : 'Échec'}
-                    </span>
+                    <div className="flex items-center gap-3">
+                      <span className={`px-3 py-1.5 rounded-full text-sm font-medium ${
+                        import_.status === 'success'
+                          ? 'bg-green-100 text-green-800 border border-green-200'
+                          : 'bg-red-100 text-red-800 border border-red-200'
+                      }`}>
+                        {import_.status === 'success' ? 'Succès' : 'Échec'}
+                      </span>
+                      <button
+                        onClick={() => {
+                          setImportToDelete(import_.id)
+                          setShowConfirmDialog(true)
+                        }}
+                        className="p-1.5 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-all duration-200"
+                        title="Supprimer cet historique"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
                   <div className="grid grid-cols-3 gap-4 text-sm">
                     <div className="bg-gray-50 rounded-lg p-3">
@@ -423,6 +459,38 @@ export default function AdminPage() {
             </div>
           </div>
         </div>
+
+        {/* Dialog de confirmation */}
+        {showConfirmDialog && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
+              <div className="flex items-center gap-3 mb-4">
+                <AlertCircle className="w-6 h-6 text-red-500" />
+                <h3 className="text-lg font-semibold text-gray-900">Confirmer la suppression</h3>
+              </div>
+              <p className="text-gray-600 mb-6">
+                Êtes-vous sûr de vouloir supprimer cet historique d'import ? Cette action ne peut pas être annulée.
+              </p>
+              <div className="flex justify-end gap-3">
+                <button
+                  onClick={() => {
+                    setShowConfirmDialog(false)
+                    setImportToDelete(null)
+                  }}
+                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Annuler
+                </button>
+                <button
+                  onClick={() => importToDelete && handleDeleteHistory(importToDelete)}
+                  className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                >
+                  Supprimer
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </main>
   )

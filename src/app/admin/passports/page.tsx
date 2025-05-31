@@ -350,19 +350,6 @@ export default function PassportsPage() {
                               </button>
                             )}
                           </>
-                        ) : passport.status === 'withdrawn' && (passport.email || passport.phoneNumber) ? (
-                          <button
-                            onClick={() => handleSendNotification(passport.passportNumber)}
-                            disabled={updating === passport.passportNumber}
-                            className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
-                          >
-                            {updating === passport.passportNumber ? (
-                              <Loader2 className="w-4 h-4 mr-1 animate-spin" />
-                            ) : (
-                              <Bell className="w-4 h-4 mr-1" />
-                            )}
-                            Notifier
-                          </button>
                         ) : null}
                       </div>
                     </td>
