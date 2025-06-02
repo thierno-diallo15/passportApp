@@ -32,6 +32,8 @@ export async function POST(req: Request) {
         passportId: passport.id,
         email,
         type: 'email',
+        status: 'pending',
+        message: `Notification pour le passeport ${passportNumber}`
       })
     }
 
@@ -40,6 +42,8 @@ export async function POST(req: Request) {
         passportId: passport.id,
         phone,
         type: 'sms',
+        status: 'pending',
+        message: `Notification pour le passeport ${passportNumber}`
       })
     }
 
