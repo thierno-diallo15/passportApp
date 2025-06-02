@@ -88,7 +88,7 @@ TWILIO_PHONE_NUMBER=votre-numero-twilio
 
 ## Utilisation
 
-1. Accédez à l'interface d'administration : `/admin`
+1. Accédez à l'interface d'administration : `/passport-admin-7x9k2p`
 2. Connectez-vous avec les identifiants administrateur
 3. Importez des passeports via l'interface d'import
 4. Gérez les passeports et envoyez des notifications

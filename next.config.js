@@ -8,6 +8,9 @@ const nextConfig = {
     }
     return config
   },
+  images: {
+    domains: ['media.giphy.com', 'illustrations.popsy.co', 'cdn.pixabay.com'],
+  },
 }
 
 module.exports = nextConfig 

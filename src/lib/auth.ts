@@ -31,7 +31,7 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   pages: {
-    signIn: '/admin',
+    signIn: '/passport-admin-7x9k2p',
   },
   callbacks: {
     async jwt({ token, user }) {
