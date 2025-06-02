@@ -10,12 +10,6 @@ const transporter = nodemailer.createTransport({
   },
 })
 
-// Configuration du client Twilio
-const twilioClient = twilio(
-  process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN
-)
-
 function formatPhoneNumber(phoneNumber: string): string {
   // Supprimer tous les caractères non numériques
   const cleaned = phoneNumber.replace(/\D/g, '')
@@ -74,6 +68,12 @@ export async function sendSMSNotification(phoneNumber: string, passportNumber: s
     const message = `Votre passeport numéro ${passportNumber} est disponible. Veuillez vous présenter à l'ambassade pour le retirer.`
 
     try {
+      // Initialiser le client Twilio ici
+      const twilioClient = twilio(
+        process.env.TWILIO_ACCOUNT_SID,
+        process.env.TWILIO_AUTH_TOKEN
+      )
+
       const result = await twilioClient.messages.create({
         body: message,
         from: process.env.TWILIO_PHONE_NUMBER,
